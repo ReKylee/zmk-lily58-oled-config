@@ -1,34 +1,46 @@
 
 if SHIELD_LILY58_LEFT || SHIELD_LILY58_DONGLE_XIAO || SHIELD_LILY58_DONGLE_PRO_MICRO
 
-config ZMK_KEYBOARD_NAME
-    default "Lily58"
+    config ZMK_KEYBOARD_NAME
+        default "Lily58"
 
-config ZMK_SPLIT_ROLE_CENTRAL
-    default y
+    config ZMK_SPLIT_ROLE_CENTRAL
+        default y
 
+    config BT_MAX_CONN
+        default 3
+    config BT_MAX_PAIRED
+        default 3
+endif
+
+if SHIELD_LILY58_DONGLE_XIAO || SHIELD_LILY58_DONGLE_PRO_MICRO
+
+    config ZMK_SPLIT_BLE_CENTRAL_PERIPHERALS
+        default 2
 endif
 
 if SHIELD_LILY58_LEFT || SHIELD_LILY58_RIGHT || SHIELD_LILY58_LEFT_PERIPHERAL || SHIELD_LILY58_DONGLE_XIAO || SHIELD_LILY58_DONGLE_PRO_MICRO
 
-config ZMK_SPLIT
-    default y
+    config ZMK_SPLIT
+        default y
 
-if ZMK_DISPLAY
+    if ZMK_DISPLAY
 
-config I2C
-    default y
+    config I2C
+        default y
 
-config SSD1306
-    default y
+    config SSD1306
+        default y
 
-if SHIELD_LILY58_DONGLE_XIAO || SHIELD_LILY58_DONGLE_PRO_MICRO
+    if SHIELD_LILY58_DONGLE_XIAO || SHIELD_LILY58_DONGLE_PRO_MICRO
 
-choice ZMK_DISPLAY_WORK_QUEUE
-    default ZMK_DISPLAY_WORK_QUEUE_DEDICATED
-endchoice
+        choice ZMK_DISPLAY_WORK_QUEUE
+            default ZMK_DISPLAY_WORK_QUEUE_DEDICATED
+        endchoice
 
-endif
+        config ZMK_SPLIT_BLE_CENTRAL_PERIPHERALS
+                default 2
+    endif
 
 endif # ZMK_DISPLAY
 
