@@ -21,8 +21,8 @@
         };
 
         layout_toggle_combo {
-            bindings = <&tog 0>;
-            key-positions = <36 51>;  // Left Shift + Right Shift 
+            bindings = <&tog 3>;
+            key-positions = <36 49>;  // Left Shift + Right Shift 
             timeout-ms = <100>;
             slow-release;
         };
