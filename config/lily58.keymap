@@ -16,7 +16,7 @@
         bootloader_central {
             bindings = <&bootloader>;
             key-positions = <0 11>;
-            layers = <2>;
+            layers = <1>;
             timeout-ms = <50>;
         };
 
