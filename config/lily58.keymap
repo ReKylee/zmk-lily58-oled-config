@@ -10,6 +10,17 @@
 #include <dt-bindings/zmk/outputs.h>
 
 / {
+    behaviors {
+        // Custom behavior for layout toggle with persistence
+        layout_toggle: layout_toggle {
+            compatible = "zmk,behavior-mod-morph";
+            label = "LAYOUT_TOGGLE";
+            #binding-cells = <0>;
+            bindings = <&to 0>, <&to 3>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+    };
+
     combos {
         compatible = "zmk,combos";
 
@@ -19,12 +30,22 @@
             layers = <2>;
             timeout-ms = <50>;
         };
+
+        // Layout toggle combo: Left Shift + Right Shift
+        // This combo works across all layers and is hard to trigger accidentally
+        layout_toggle_combo {
+            bindings = <&layout_toggle>;
+            key-positions = <36 49>;  // Left Shift + Right Shift positions
+            timeout-ms = <100>;
+            slow-release;
+        };
     };
 
     keymap {
         compatible = "zmk,keymap";
 
-        default_layer {
+        // Layer 0: QWERTY (default)
+        qwerty_layer {
             // ------------------------------------------------------------------------------------------------------------
             // |  ESC  |  1  |  2  |  3   |  4   |  5   |                   |  6   |  7    |  8    |  9   |   0   |   `   |
             // |  TAB  |  Q  |  W  |  E   |  R   |  T   |                   |  Y   |  U    |  I    |  O   |   P   |   -   |
@@ -41,6 +62,7 @@
             >;
         };
 
+        // Layer 1: Lower (symbols/function keys)
         lower_layer {
             // ------------------------------------------------------------------------------------------------------------
             // | BTCLR | BT1 | BT2 |  BT3 |  BT4 |  BT5 |                   |      |       |       |      |       |       |
@@ -58,6 +80,7 @@
             >;
         };
 
+        // Layer 2: Raise (navigation/numbers)
         raise_layer {
             // ------------------------------------------------------------------------------------------------------------
             // |       |     |     |      |      |      |                   |      |       |       |      |       |       |
@@ -72,6 +95,24 @@
 &kp F1     &kp F2  &kp F3  &kp F4   &kp F5   &kp F6                         &trans       &kp LEFT    &kp DOWN   &kp UP    &kp RIGHT  &trans
 &kp F7     &kp F8  &kp F9  &kp F10  &kp F11  &kp F12      &trans    &trans  &kp KP_PLUS  &kp MINUS   &kp EQUAL  &kp LBKT  &kp RBKT   &kp BSLH
                            &trans   &trans   &trans       &trans    &trans  &trans       &kp DELETE  &trans
+            >;
+        };
+
+        // Layer 3: Colemak-DH (Matrix/Ortholinear)
+        colemak_dh_layer {
+            // ------------------------------------------------------------------------------------------------------------
+            // |  ESC  |  1  |  2  |  3   |  4   |  5   |                   |  6   |  7    |  8    |  9   |   0   |   `   |
+            // |  TAB  |  Q  |  W  |  F   |  P   |  B   |                   |  J   |  L    |  U    |  Y   |   ;   |   -   |
+            // |  CTRL |  A  |  R  |  S   |  T   |  G   |                   |  M   |  N    |  E    |  I   |   O   |   '   |
+            // | SHIFT |  Z  |  X  |  C   |  D   |  V   |   "["  |  |  "]"  |  K   |  H    |  ,    |  .   |   /   | SHIFT |
+            //                     | ALT  | GUI  | LOWER|  SPACE |  | ENTER | RAISE| BSPC  | GUI   |
+
+            bindings = <
+&kp ESC    &kp N1  &kp N2  &kp N3    &kp N4    &kp N5                         &kp N6  &kp N7         &kp N8        &kp N9   &kp N0    &kp GRAVE
+&kp TAB    &kp Q   &kp W   &kp F     &kp P     &kp B                          &kp J   &kp L          &kp U         &kp Y    &kp SEMI  &kp MINUS
+&kp LCTRL  &kp A   &kp R   &kp S     &kp T     &kp G                          &kp M   &kp N          &kp E         &kp I    &kp O     &kp SQT
+&kp LSHFT  &kp Z   &kp X   &kp C     &kp D     &kp V   &kp LBKT     &kp RBKT  &kp K   &kp H          &kp COMMA     &kp DOT  &kp FSLH  &kp RSHFT
+                           &kp LALT  &kp LGUI  &mo 1   &kp SPACE    &kp RET   &mo 2   &kp BACKSPACE  &mt HOME END
             >;
         };
     };
