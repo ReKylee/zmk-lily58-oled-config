@@ -10,16 +10,6 @@
 #include <dt-bindings/zmk/outputs.h>
 
 / {
-    behaviors {
-        // Custom behavior for layout toggle with persistence
-        layout_toggle: layout_toggle {
-            compatible = "zmk,behavior-mod-morph";
-            label = "LAYOUT_TOGGLE";
-            #binding-cells = <0>;
-            bindings = <&to 0>, <&to 3>;
-            mods = <(MOD_LSFT|MOD_RSFT)>;
-        };
-    };
 
     combos {
         compatible = "zmk,combos";
@@ -31,11 +21,9 @@
             timeout-ms = <50>;
         };
 
-        // Layout toggle combo: Left Shift + Right Shift
-        // This combo works across all layers and is hard to trigger accidentally
         layout_toggle_combo {
-            bindings = <&layout_toggle>;
-            key-positions = <36 49>;  // Left Shift + Right Shift positions
+            bindings = <&tog 3>;
+            key-positions = <36 51>;  // Left Shift + Right Shift 
             timeout-ms = <100>;
             slow-release;
         };
